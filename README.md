@@ -77,14 +77,14 @@ has_one :shipping
 
 shippings テーブル
 
-| Column       | Type       | Options     |
-| ------------ | ---------- | ----------- |
-| postal_code  | string     | null: false |
-| region_id    | integer | null: false |
-| municipality | string     | null: false |
-| address      | string     | null: false |
-| building     | string     |             |
-| phone_number | string     | null: false |
-| buyers       | references |             |
+| Column       | Type       | Options           |
+| ------------ | ---------- | ----------------- |
+| postal_code  | string     | null: false       |
+| region_id    | integer    | null: false       |
+| municipality | string     | null: false       |
+| address      | string     | null: false       |
+| building     | string     |                   |
+| phone_number | string     | null: false       |
+| buyers       | references | foreign_key: true |
 
 belongs_to :buyer
