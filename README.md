@@ -38,7 +38,7 @@ users テーブル
 | birthday           | date       | null: false               |
 
 has_many :items
-has_many :buyers
+has_many :buyer
 
 
 items テーブル
@@ -70,21 +70,21 @@ buyers テーブル
 |            |            |                   |
 |            |            |                   |
 
-belongs_to :items
-belongs_to :users
-has_one :shippings
+belongs_to :item
+belongs_to :user
+has_one :shipping
 
 
 shippings テーブル
 
-| Column       | Type    | Options     |
-| ------------ | ------- | ----------- |
-| postal_code  | string  | null: false |
-| region       | string  | null: false |
-| municipality | string  | null: false |
-| address      | string  | null: false |
-| building     | string  |             |
-| phone_number | string  | null: false |
-|              |         |             |
+| Column       | Type       | Options     |
+| ------------ | ---------- | ----------- |
+| postal_code  | string     | null: false |
+| region       | string     | null: false |
+| municipality | string     | null: false |
+| address      | string     | null: false |
+| building     | string     |             |
+| phone_number | string     | null: false |
+| buyers       | references |             |
 
-belongs_to :buyers
+belongs_to :buyer
