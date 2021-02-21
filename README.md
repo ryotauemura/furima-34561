@@ -48,9 +48,9 @@ items テーブル
 | name             | string     | null: false       |
 | description      | text       | null: false       |
 | category_id      | integer    | null: false       |
-| state_id         | integer       | null: false       |
+| state_id         | integer    | null: false       |
 | postage_id       | integer    | null: false       |
-| region_id        | integer     | null: false       |
+| region_id        | integer    | null: false       |
 | shipping_date_id | integer    | null: false       |
 | price            | integer    | null: false       |
 | user             | references | foreign_key: true |
@@ -80,7 +80,7 @@ shippings テーブル
 | Column       | Type       | Options     |
 | ------------ | ---------- | ----------- |
 | postal_code  | string     | null: false |
-| region       | string     | null: false |
+| region_id    | integer | null: false |
 | municipality | string     | null: false |
 | address      | string     | null: false |
 | building     | string     |             |
