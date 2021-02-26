@@ -2,8 +2,6 @@ require 'rails_helper'
 
 RSpec.describe Item, type: :model do 
   before do
-    # @user = FactoryBot.build(:user)
-    # @item = FactoryBot.build(:item,user_id: @user.id)
     @item = FactoryBot.build(:item)
   end
 
@@ -83,8 +81,20 @@ RSpec.describe Item, type: :model do
       expect(@item.errors.full_messages).to include("Price must be less than 9999999")
     end
 
-    it 'priceが半角数字以外では保存できないこと' do
-      @item.price = 'aaa嗚呼嗚呼'
+    it 'priceが全角文字では登録できないこと' do
+      @item.price = '嗚呼嗚呼あ１１１AA'
+      @item.valid?
+      expect(@item.errors.full_messages).to include("Price is not a number")
+    end
+
+    it 'priceが半角英数混合では登録できないこと' do
+      @item.price = 'aaa11111'
+      @item.valid?
+      expect(@item.errors.full_messages).to include("Price is not a number")
+    end
+
+    it 'priceが半角英語だけでは登録できないこと' do
+      @item.price = 'aaaaiii'
       @item.valid?
       expect(@item.errors.full_messages).to include("Price is not a number")
     end
