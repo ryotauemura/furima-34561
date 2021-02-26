@@ -6,7 +6,7 @@ class Item < ApplicationRecord
   belongs_to :category
 
   with_options presence: true do
-     validates :user_id,:image,:name,:description,:category_id,:state_id,:postage_id,:region_id,:shipping_date_id,:price
+     validates :image,:name,:description,:category_id,:state_id,:postage_id,:region_id,:shipping_date_id,:price
   end
 
   #validates :price, numericality: { with: /\A[0-9]+\z/ }

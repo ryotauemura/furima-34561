@@ -2,25 +2,27 @@ require 'rails_helper'
 
 RSpec.describe Item, type: :model do 
   before do
-    @user = FactoryBot.build(:user)
-    @item = FactoryBot.build(:item,user_id: @user)
+    # @user = FactoryBot.build(:user)
+    # @item = FactoryBot.build(:item,user_id: @user.id)
+    @item = FactoryBot.build(:item)
   end
 
   context '商品が保存できる場合' do
+   
     it 'imageとnameとdescriptionとcategoryとstateとpostageとregionとshipping_dateとpriceが存在すれば保存できること' do
+    
       expect(@item).to be_valid
     end
   end
 
   context '商品が保存できない場合' do
     
-
     it 'imageが空では保存できないこと' do
       @item.image = nil
       @item.valid?
       expect(@item.errors.full_messages).to include("Image can't be blank")
     end
-
+  
     it 'nameが空では保存できないこと' do
       @item.name = ''
       @item.valid?
@@ -60,7 +62,7 @@ RSpec.describe Item, type: :model do
     it 'shipping_date_idが{1}では保存できないこと' do
       @item.shipping_date_id = 1
       @item.valid?
-      expect(@item.errors.full_messages).to include("Shipping_date must be other than 1")
+      expect(@item.errors.full_messages).to include("Shipping date must be other than 1")
     end
 
     it 'priceが空では保存できないこと' do
