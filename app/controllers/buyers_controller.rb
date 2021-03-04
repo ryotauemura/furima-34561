@@ -1,22 +1,39 @@
 class BuyersController < ApplicationController
-  before_action :authenticate_user!, except: :index
+  before_action :authenticate_user!, only: :index 
   def index 
     @item = Item.find(params[:item_id])
+    @buyer_shipping = BuyersShippings.new
+  end
+
+  def new
+    
   end
 
   def create
-    @buyer = Buyer.create(buyer_params)
-    Shipping.create(shipping_params)
-    redirect_to root_path
+    @item = Item.find(params[:item_id])
+    @buyer_shipping = BuyersShippings.new(buyer_params)
+    if @buyer_shipping.valid?
+      pay_item
+      @buyer_shipping.save
+      redirect_to root_path
+    else
+      render :index
+    end
   end
 
   private
 
   def buyer_params
-    params.permit(:price).merge(user_id: current_user.id)
+    params.require(:buyers_shippings).permit(:postal_code, :region_id, :municipality, :address, :phone_number).merge(user_id: current_user.id,item_id:params[:item_id],token: params[:token])
   end
 
-  def shipping_params
-    params.permit(:postal_code,:region_id,:municipality,:address,:building,:phone_number).merge(buyer_id: @buyer.id)
+  def pay_item
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp::Charge.create(
+      amount: @item.price,
+      card: buyer_params[:token],
+      currency: 'jpy'
+    )
   end
+  
 end
