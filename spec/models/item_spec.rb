@@ -8,7 +8,6 @@ RSpec.describe Item, type: :model do
   context '商品が保存できる場合' do
    
     it 'imageとnameとdescriptionとcategoryとstateとpostageとregionとshipping_dateとpriceが存在すれば保存できること' do
-    
       expect(@item).to be_valid
     end
   end

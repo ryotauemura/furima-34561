@@ -3,7 +3,7 @@ class BuyersShippings
   attr_accessor :postal_code,:region_id,:municipality,:address,:building,:phone_number,:user_id,:item_id,:token
 
   with_options presence: true do
-    validates :municipality,:address,:user_id,:token
+    validates :municipality,:address,:user_id,:item_id,:token
     validates :postal_code, format: {with: /\A[0-9]{3}-[0-9]{4}\z/, message: "is invalid. Include hyphen(-)"}
     VALID_PHONE_REGEX = /\A\d{10}$|^\d{11}\z/
     validates :phone_number, format: { with: VALID_PHONE_REGEX }

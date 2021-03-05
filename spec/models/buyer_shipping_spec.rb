@@ -4,7 +4,9 @@ RSpec.describe BuyersShippings, type: :model do
   describe '購入者情報と配送先情報' do
     before do
       user = FactoryBot.create(:user)
-      @buyer_shipping = FactoryBot.build(:buyers_shippings,user_id: user.id)
+      @item = FactoryBot.create(:item)
+      @buyer_shipping = FactoryBot.build(:buyers_shippings,user_id: user.id,item_id: @item.id)
+     sleep(0.1) 
     end
 
     context '購入者情報と配送先情報が保存できる場合' do
@@ -21,6 +23,16 @@ RSpec.describe BuyersShippings, type: :model do
     end
  
     context '購入者情報と配送先情報が保存できない場合' do
+
+      it 'user_idがないと保存できないこと' do
+       @buyer_shipping.user_id = nil
+       @buyer_shipping.valid?
+      end
+
+      it 'item_idがないと保存できないこと' do
+       @buyer_shipping.item_id = nil
+       @buyer_shipping.valid?
+      end
  
       it 'postal_codeが空だと保存できないこと' do
        @buyer_shipping.postal_code = ''
@@ -60,6 +72,12 @@ RSpec.describe BuyersShippings, type: :model do
  
       it 'phone_numberが半角英数字以外では保存できないこと' do
        @buyer_shipping.phone_number = 'aaaaaあ'
+       @buyer_shipping.valid?
+       expect(@buyer_shipping.errors.full_messages).to include("Phone number is invalid")
+      end
+
+      it 'phone_numberが12桁以上では保存できないこと' do
+       @buyer_shipping.phone_number = '1234567890123456'
        @buyer_shipping.valid?
        expect(@buyer_shipping.errors.full_messages).to include("Phone number is invalid")
       end

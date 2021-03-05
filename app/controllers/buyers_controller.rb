@@ -1,7 +1,7 @@
 class BuyersController < ApplicationController
-  before_action :authenticate_user!, only: [:index] 
+  before_action :authenticate_user!, only: [:index,:create] 
   before_action :set_item, only:[:index,:create]
-  before_action :redirect_buyer, only:[:index]
+  before_action :redirect_buyer, only:[:index,:create]
 
   def index 
     @buyer_shipping = BuyersShippings.new
