@@ -39,7 +39,6 @@ class ItemsController < ApplicationController
     redirect_to root_path
   end
 
-
   private
   
   def item_params
@@ -51,8 +50,9 @@ class ItemsController < ApplicationController
   end
 
   def redirect_edit
-     if current_user.id != @item.user.id
+     if current_user.id != @item.user.id || @item.buyer.present?
         redirect_to root_path
      end
   end
+
 end
