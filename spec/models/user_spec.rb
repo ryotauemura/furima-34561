@@ -74,7 +74,7 @@ RSpec.describe User, type: :model do
       @user.password = 'aaaaaa'
       @user.password_confirmation = 'aaaaaa'
       @user.valid?
-      expect(@user.errors.full_messages).to include("Password is invalid. Input half-width characters.")
+      expect(@user.errors.full_messages).to include("Password is invalid.")
     end
 
     it 'passwordとpassword_confirmationが不一致では登録できないこと' do
